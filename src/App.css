@@ -1,88 +1,38 @@
-* {
-  box-sizing: border-box;
-  align-self: center;
-}
-
-.box-calendar {
+.App {
   text-align: center;
- 
 }
 
-.box-calendar .close button{
-  cursor: pointer;
-  background-color: aqua;
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
 }
 
-
-.dashboard-container{
-background-color: aquamarine;
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
 }
 
-.header{background-color: #ff742b;
-  height: 70px;
-}
-
- .logo, .search,.setting{
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
   display: flex;
-  flex-direction: row;
-  
-}
- 
-.logo{
-  margin: 5px 0;
-  background-color:#ff742b;
-}
-.logo-text{
-  font-size: 20px;
-  line-height: 1;
-  text-align: left;
-  margin-left: 10px;
-}
-
-.search{
-  height: 50px;
-  margin: 10px 0;
-  justify-content:space-between ;
-  background-color:#fff;
-}
- 
-.search div{
-margin:0 10px;
-}
-
-.search :nth-child(2){
-  width: 60%;
-}
-
-
-.search a{
-  margin: 15px;
-}
-.setting{
-  justify-content: flex-end;
-  margin: 5px 0;
-  background-color:#ff742b;
-}
-
-.setting div{
-  margin-right: 20px;
-  font-size: 18px;
-}
-
-.filter{
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-}
-
-.filter div{
-  display: flex;
+  flex-direction: column;
   align-items: center;
-}
- .list {
-  text-align: left !important;
- margin: 10px;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
 }
 
-.list div{
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
