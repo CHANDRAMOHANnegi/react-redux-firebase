@@ -84,56 +84,57 @@ export const loginUser = (email, password) => dispatch => {
         .auth()
         .signInWithEmailAndPassword(email, password)
         .then(user => {
-            console.log("login user", user);
-            dispatch(receiveLogin(user));
+            var rootRef = firebase.database().ref("users/")//.child("users");
+            rootRef.orderByChild("email").equalTo(email).on("child_added", (snap) => {
+                dispatch(receiveLogin(snap.val().name));
+            })
         })
         .catch(error => {
-            console.log("login error", error);
             dispatch(loginError());
         });
 };
 
-export const registerUser = (email, password) => (dispatch) => {
-    console.log("reister===>");
+export const registerUser = (name, email, password) => (dispatch) => {
     dispatch(requestRegister());
     firebase
         .auth()
         .createUserWithEmailAndPassword(email, password)
         .then((user) => {
-            console.log("register successs", user);
-            dispatch(receiveRegister(user));
+            dispatch(receiveRegister({ email, password }));
+            var rootRef = firebase.database().ref("users")
+            rootRef.push({
+                name: name,
+                email: email
+            })
         })
         .catch((error) => {
-            console.log("register error", error);
             dispatch(registerError());
         });
 };
 
 export const logoutUser = () => dispatch => {
-    console.log("logout req");
     dispatch(requestLogout());
     firebase
         .auth()
         .signOut()
         .then(() => {
-            console.log("logout successs");
             dispatch(receiveLogout());
         })
         .catch(error => {
-            console.log("logout error", error);
             dispatch(logoutError());
         });
 };
 
 export const verifyAuth = () => dispatch => {
-    console.log("verify auth==");
     dispatch(verifyRequest());
     firebase
         .auth()
         .onAuthStateChanged(user => {
-            console.log("user==",user);
             if (user !== null) {
-                dispatch(receiveLogin(user));
+                var rootRef = firebase.database().ref("users/")//.child("users");
+                rootRef.orderByChild("email").equalTo(user.email).on("child_added", (snap) => {
+                    dispatch(receiveLogin(snap.val().name));
+                })
             }
             dispatch(verifySuccess());
         });
@@ -144,3 +145,4 @@ export const auth = () => {
         return !!authenticated
     });
 }
+

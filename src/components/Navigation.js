@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {  NavLink, withRouter } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 class Navigation extends Component {
     constructor(props) {
         super(props);
@@ -7,20 +7,19 @@ class Navigation extends Component {
 
     render() {
         return (
-            <div>
-                {this.props.authenticated ? (
-                       <a link="/login" onClick={this.props.logoutUser}>Logout</a>
-                    )
+            <div className="navigation">
+                {this.props.authenticated ? 
+                    <a href="/login" onClick={this.props.logoutUser}>Logout</a>
                     :
-                    (<span>
-                        <a link="/login">Login</a>
-                        <a link="/register">Register</a>
-                    </span>
-                    )}
+                    <React.Fragment>
+                        <a href="/login">Login</a>
+                        <a href="/register">Register</a>
+                    </React.Fragment>
+                }
             </div>
         );
     }
 }
 
 
-export default  Navigation;
+export default Navigation;

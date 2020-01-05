@@ -5,7 +5,6 @@ import { Redirect } from 'react-router-dom';
 import {registerUser} from '../Store/Actions/Auth'
 
 class RegisterContainer extends Component {
-   
     render() {
         const {registerError,isAuthenticated,registerUser } = this.props;
         if (isAuthenticated) {
@@ -21,9 +20,9 @@ class RegisterContainer extends Component {
     }
 }
 
-
 const mapStateToProps=(state)=>{
     return {
+        isAuthenticated:state.auth.isAuthenticated,
       isRegistering: state.auth.isRegistering,
       registerError: state.auth.registerError,
     };

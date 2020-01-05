@@ -2,10 +2,11 @@
 import { SEARCH_RESULT_SUCCESS, REQUEST_SEARCH_PENDING, SEARCH_ERROR } from '../ActionType/AlgoliaSearchActionType';
 import axiosService from '../../Inits/Axios';
 
-export const search = (searchType, query) => async (dispatch, getState) => {
+export const search = ( url) => async (dispatch, getState) => {
     dispatch({ type: REQUEST_SEARCH_PENDING })
-    if(!searchType)searchType="search";
-    const APIURL = `http://hn.algolia.com/api/v1/${searchType}?query=${query}`;
+    // if(!searchType)searchType="search";
+    const APIURL =url;
+    //  `http://hn.algolia.com/api/v1/${searchType}?query=${query}`;
     await axiosService.get(APIURL)
         .then((response) => {
             // console.log('search', response)

@@ -3,7 +3,7 @@ import {
   Container, Divider, List, ListItem,
   Input, Typography, Box, Grid, Paper
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import {withRouter} from 'react-router-dom'
 import SettingsIcon from '@material-ui/icons/Settings';
 import SearchIcon from '@material-ui/icons/Search';
 import logo from '../assets/logo.png'
@@ -47,22 +47,28 @@ class Dashboard extends React.Component {
 
   handleSearch = () => {
     const { query } = this.state;
-    if (query)
-      this.props.search("", query)
+    let searchType = "search"
+    let url = `http://hn.algolia.com/api/v1/${searchType}?query=${query}`;
+    this.props.search(url)
+  }
+
+  componentDidMount() {
+    let query = "https://hn.algolia.com/api/v1/search"
+    this.props.search(query)
   }
 
   setFilter = () => {
 
   }
 
-  Header = () => {
+  Header = ({ name }) => {
     return (
       <div className="header">
         <Grid container >
           <Grid item xs={2}>
             <div className="logo">
               <div>  <img style={{ width: "50px" }} src={logo} alt="logo" /></div>
-              <div className="logo-text"> Search<br /> Hacker News</div>
+              <div className="logo-text">{name ? name : <span>Search<br /> Hacker News</span>}</div>
             </div>
           </Grid>
           <Grid item xs={8}>
@@ -91,13 +97,11 @@ class Dashboard extends React.Component {
     );
   };
 
-
-
   render() {
-    const { searchData } = this.props;
+    const { searchData, user } = this.props;
     return (
       <Container maxWidth="lg" className="dashboard-container">
-        <this.Header />
+        <this.Header name={!!user && user} />
         <div className="filter">
           <div> search<Filter setFilter={this.setFilter} filterMap={this.searcheMap} /></div>
           <div>    by <Filter setFilter={this.setFilter} filterMap={this.byMap} /></div>
@@ -105,17 +109,17 @@ class Dashboard extends React.Component {
         </div>
         <Divider />
 
-        {/* <Box>
+        <Box>
           <h3 onClick={() => this.props.history.push('/profile')}>Welcome!</h3>
-        </Box> */}
+        </Box>
         <Typography component="div" style={{ backgroundColor: '#cfe8fc', }} >
           <div className="main">
             <List>
               {searchData && searchData.hits.map((result, i) =>
                 <div key={i} className="list">
                   <div >
-                    <span> {result.title}</span>
-                    <span><a href={result.url}>({result.url})</a></span>
+                    <span> {result.title?result.title:null}</span>
+                    <span><a href={result.url} target="_blank">{result.url? ( result.url):null}</a></span>
                   </div>
                   <div>
                     <span> {result.points} points</span>
@@ -134,4 +138,4 @@ class Dashboard extends React.Component {
     )
   }
 }
-export default Dashboard;
+export default withRouter(Dashboard)

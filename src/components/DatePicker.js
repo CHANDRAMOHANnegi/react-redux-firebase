@@ -36,9 +36,7 @@ export default class Main extends Component {
 
   render() {
     const { rangePicker, isShowCalendar } = this.state;
-
     const format = "DD/MMMM/YYYY";
-    console.log("rangePicker", rangePicker);
 
     return (
       <main>

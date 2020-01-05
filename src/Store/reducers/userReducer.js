@@ -6,7 +6,9 @@ import {
   LOGOUT_SUCCESS,
   LOGOUT_FAILURE,
   VERIFY_REQUEST,
-  VERIFY_SUCCESS
+  VERIFY_SUCCESS,
+  REGISTER_SUCCESS, REGISTER_FAILURE, REGISTER_REQUEST
+
 } from "../ActionType/AuthActionType";
 
 const initialState = {
@@ -21,21 +23,32 @@ const initialState = {
   user: {}
 }
 
-export default function(state = initialState, action)  {
+export default function (state = initialState, action) {
   switch (action.type) {
-    case LOGIN_REQUEST:{console.log(action);
+    case LOGIN_REQUEST: {
+      console.log(action);
       return Object.assign({}, state, {
         ...state,
         isLoggingIn: true,
         loginError: false
-      })};
-    case LOGIN_SUCCESS:
+      })
+    };
+    case LOGIN_SUCCESS: {
+      console.log(action);
       return Object.assign({}, state, {
         ...state,
         isLoggingIn: false,
         isAuthenticated: true,
         user: action.user
       });
+    }
+    case REGISTER_SUCCESS: {
+      console.log(action);
+      return Object.assign({}, state, {
+        ...state,
+        user: action.user
+      });
+    }
     case LOGIN_FAILURE:
       return Object.assign({}, state, {
         ...state,

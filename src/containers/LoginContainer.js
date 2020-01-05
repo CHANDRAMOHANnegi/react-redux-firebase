@@ -7,7 +7,6 @@ import { loginUser } from '../Store/Actions/Auth'
 class LoginContainer extends Component {
 
   render() {
-    console.log("logincontainer", this.props.isAuthenticated);
     const { loginError, isAuthenticated, loginUser } = this.props;
     if (isAuthenticated) {
       return <Redirect to="/dashboard" />;
