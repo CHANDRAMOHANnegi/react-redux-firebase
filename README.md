@@ -1,4 +1,4 @@
-click  here to  preview  "algoliaa.surge.sh"
+click  here to  preview  "http://algoliaa.surge.sh"
 
 
 
